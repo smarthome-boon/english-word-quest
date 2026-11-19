@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Word Quest | ฝึกศัพท์ภาษาอังกฤษ ม.4</title>
+<style>
+:root{--ink:#18243b;--muted:#69758b;--bg:#f4f7fc;--card:#fff;--blue:#4169e1;--blue2:#294bb8;--mint:#dff7ee;--green:#16845d;--yellow:#fff2cc;--line:#e5eaf3;--pink:#fff0f1;--shadow:0 12px 32px #24365b12}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+header{background:linear-gradient(120deg,#243f9d,#5379ed);color:white;padding:26px max(20px,calc((100% - 1100px)/2)) 32px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.brand{font-weight:800;font-size:22px;letter-spacing:.2px}.tag{background:#ffffff25;padding:7px 12px;border-radius:30px;font-size:13px}
+header h1{font-size:clamp(25px,4vw,36px);margin:22px 0 5px}header p{margin:0;color:#e4eaff}
+main{max-width:1100px;margin:22px auto;padding:0 18px 50px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:-2px}
+.stat,.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:17px;box-shadow:var(--shadow)}.stat small{color:var(--muted)}.stat strong{display:block;font-size:27px;margin-top:3px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0}.tab{border:1px solid var(--line);background:#fff;color:var(--muted);padding:10px 16px;border-radius:12px;cursor:pointer;font-weight:650}.tab.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.layout{display:grid;grid-template-columns:1.4fr .8fr;gap:16px}.panel h2{font-size:20px;margin:0 0 6px}.sub{color:var(--muted);font-size:14px;margin:0 0 17px}
+.wordcard{background:linear-gradient(145deg,#f2f5ff,#fff);border:1px solid #dfe6ff;border-radius:18px;padding:28px;text-align:center;min-height:230px;display:flex;flex-direction:column;justify-content:center}
+.word{font-size:clamp(32px,6vw,48px);font-weight:850;color:#294bb8}.pron{font-size:18px;color:#6a7590;margin:4px}.meaning{font-size:22px;font-weight:700;margin-top:12px}
+.btnrow{display:flex;gap:9px;justify-content:center;flex-wrap:wrap;margin-top:17px}button,.btn{font:inherit}.primary,.secondary,.success,.warning{border:0;border-radius:11px;padding:11px 16px;font-weight:700;cursor:pointer}.primary{background:var(--blue);color:#fff}.primary:hover{background:var(--blue2)}.secondary{background:#edf1fb;color:#33446d}.success{background:var(--mint);color:var(--green)}.warning{background:var(--yellow);color:#795a08}
+button:disabled{opacity:.45;cursor:not-allowed}.setting{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:13px 0}.setting input{width:75px;padding:9px;border:1px solid var(--line);border-radius:9px;font:inherit}
+.progress{height:10px;background:#edf0f7;border-radius:20px;overflow:hidden}.progress span{display:block;height:100%;background:linear-gradient(90deg,#4d78ed,#32b88a);width:0%;transition:width .3s}
+.pill{display:inline-block;padding:5px 9px;background:#eef2ff;color:#435eb8;border-radius:20px;font-size:12px;font-weight:700}
+.list{display:grid;gap:9px}.wordrow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px;border:1px solid var(--line);border-radius:12px}.wordrow b{display:block}.wordrow small{color:var(--muted)}
+.quiz-options{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}.option{background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px;cursor:pointer;text-align:left}.option:hover{border-color:var(--blue);background:#f5f7ff}.feedback{margin-top:14px;padding:12px;border-radius:11px;display:none}.good{background:var(--mint);color:#126b4c}.bad{background:var(--pink);color:#9d3440}
+input[type=range]{width:100%}.hide{display:none!important}.foot{color:var(--muted);font-size:12px;text-align:center;margin-top:25px}
+@media(max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}.layout{grid-template-columns:1fr}.quiz-options{grid-template-columns:1fr}.stat{padding:13px}.stat strong{font-size:23px}}
+</style>
+</head>
+<body>
+<header><div class="top"><div class="brand">✦ English Word Quest</div><div class="tag">คลังศัพท์สำหรับนักเรียนชั้น ม.4</div></div><h1>เก่งศัพท์อังกฤษ วันละนิด</h1><p>เรียนรู้ • ทบทวน • ทดสอบ • ติดตามพัฒนาการของตัวเอง</p></header>
+<main>
+<section class="stats">
+ <div class="stat"><small>คำที่เรียนแล้ว</small><strong id="learnedStat">0</strong><small>คำ</small></div>
+ <div class="stat"><small>ตอบแบบทดสอบถูก</small><strong id="accuracyStat">0%</strong><small>ความแม่นยำ</small></div>
+ <div class="stat"><small>วันที่เข้าเรียนต่อเนื่อง</small><strong id="streakStat">0</strong><small>วัน 🔥</small></div>
+ <div class="stat"><small>คำที่ควรทบทวน</small><strong id="reviewStat">0</strong><small>คำ</small></div>
+</section>
+<nav class="tabs">
+ <button class="tab active" data-tab="learn">📘 เรียนคำศัพท์</button><button class="tab" data-tab="quiz">🎯 แบบทดสอบ</button><button class="tab" data-tab="review">🔁 ทบทวน</button><button class="tab" data-tab="progress">📊 ความก้าวหน้า</button>
+</nav>
+<section id="learn" class="tabpage">
+ <div class="layout">
+  <div class="panel"><h2>คำศัพท์ประจำวันนี้</h2><p class="sub">เรียนตามจำนวนคำใหม่ที่ตั้งไว้ แล้วกด “จำได้แล้ว” เพื่อบันทึกความก้าวหน้า</p>
+   <div class="wordcard"><span class="pill" id="wordCount">คำที่ 1</span><div class="word" id="word">achieve</div><div class="pron" id="pron">/əˈtʃiːv/</div><div class="meaning" id="meaning">บรรลุ, ทำสำเร็จ</div><div class="sub" id="example" style="margin:10px 0 0">Example: You can achieve your goals.</div></div>
+   <div class="btnrow"><button class="secondary" id="prevBtn">← ก่อนหน้า</button><button class="secondary" id="speakBtn">🔊 ฟังเสียง</button><button class="success" id="knownBtn">✓ จำได้แล้ว</button><button class="primary" id="nextBtn">คำถัดไป →</button></div>
+   <p class="sub" style="text-align:center;margin:15px 0 0" id="dailyNote"></p>
+  </div>
+  <aside class="panel"><h2>เป้าหมายรายวัน</h2><p class="sub">ปรับจำนวนคำศัพท์ใหม่ที่ต้องการเรียนในแต่ละวัน</p>
+   <div class="setting"><label for="dailyGoal">คำใหม่ต่อวัน</label><input id="dailyGoal" type="number" min="1" max="20" value="5"></div>
+   <button class="primary" id="saveGoal">บันทึกเป้าหมาย</button><hr style="border:0;border-top:1px solid var(--line);margin:18px 0">
+   <div class="setting"><b>ความคืบหน้าวันนี้</b><span id="todayCount">0 / 5</span></div><div class="progress"><span id="todayBar"></span></div>
+   <p class="sub" style="margin-top:13px">เคล็ดลับ: อ่านออกเสียง ดูตัวอย่างประโยค และลองแต่งประโยคของตัวเอง จะช่วยให้จำคำศัพท์ได้นานขึ้น</p>
+   <span class="pill">เป้าหมายเล็ก ๆ ทำได้ทุกวัน</span>
+  </aside>
+ </div>
+</section>
+<section id="quiz" class="tabpage hide"><div class="panel"><h2>ทดสอบความจำ</h2><p class="sub">เลือกคำแปลภาษาไทยที่ถูกต้อง ระบบจะบันทึกคะแนนให้อัตโนมัติ</p><div id="quizArea"><div class="pill" id="quizNumber">ข้อ 1</div><div class="word" id="quizWord" style="margin:18px 0 5px">achieve</div><div class="pron" id="quizPron">/əˈtʃiːv/</div><div class="quiz-options" id="options"></div><div class="feedback" id="feedback"></div><div class="btnrow"><button class="primary" id="nextQuiz" disabled>ข้อต่อไป →</button></div></div><div id="quizDone" class="hide"><h3>ทำแบบทดสอบครบแล้ว 🎉</h3><p id="quizResult"></p><button class="primary" id="restartQuiz">ทำอีกครั้ง</button></div></div></section>
+<section id="review" class="tabpage hide"><div class="panel"><h2>คำศัพท์ที่ควรทบทวน</h2><p class="sub">คำที่ยังไม่ทำเครื่องหมายว่าจำได้ หรือคำที่ตอบผิดในแบบทดสอบ</p><div class="list" id="reviewList"></div></div></section>
+<section id="progress" class="tabpage hide"><div class="layout"><div class="panel"><h2>ภาพรวมการเรียน</h2><p class="sub">ข้อมูลนี้บันทึกไว้ในเบราว์เซอร์เครื่องนี้</p><div class="setting"><span>เรียนแล้ว</span><b id="progressLearned">0 / 0</b></div><div class="progress"><span id="allBar"></span></div><div class="setting"><span>คะแนนแบบทดสอบ</span><b id="progressAccuracy">0%</b></div><div class="setting"><span>จำนวนครั้งที่ตอบ</span><b id="attempts">0</b></div><div class="setting"><span>วันที่เริ่มเรียน</span><b id="startDate">วันนี้</b></div></div>
+<div class="panel"><h2>ข้อมูลการเรียนของฉัน</h2><p class="sub">สำรองข้อมูลเพื่อย้ายเครื่อง หรือเก็บผลการเรียนไว้</p><button class="primary" id="exportBtn">⬇ ดาวน์โหลดข้อมูล</button> <button class="secondary" id="resetBtn">ล้างข้อมูลการเรียน</button><p class="sub" style="margin-top:16px">หมายเหตุ: การดาวน์โหลดข้อมูลจะเก็บสถานะคำศัพท์ คะแนน และเป้าหมายรายวันไว้ในไฟล์ JSON</p></div></div></section>
+<div class="foot">English Word Quest • เหมาะสำหรับฝึกคำศัพท์ระดับมัธยมศึกษาตอนปลาย</div>
+</main>
+<script>
+const words=[
+["achieve","/əˈtʃiːv/","บรรลุ, ทำสำเร็จ","You can achieve your goals."],
+["advantage","/ədˈvɑːntɪdʒ/","ข้อได้เปรียบ","Speaking English is an advantage."],
+["ambition","/æmˈbɪʃən/","ความทะเยอทะยาน, ความมุ่งมั่น","Her ambition is to become a doctor."],
+["analyze","/ˈænəlaɪz/","วิเคราะห์","We need to analyze the results."],
+["approach","/əˈprəʊtʃ/","แนวทาง, เข้าใกล้","We need a new approach."],
+["attitude","/ˈætɪtjuːd/","ทัศนคติ","A positive attitude is important."],
+["benefit","/ˈbenɪfɪt/","ประโยชน์, เป็นประโยชน์","Exercise has many benefits."],
+["challenge","/ˈtʃælɪndʒ/","ความท้าทาย, ท้าทาย","Learning a language is a challenge."],
+["communicate","/kəˈmjuːnɪkeɪt/","สื่อสาร","We communicate by email."],
+["community","/kəˈmjuːnəti/","ชุมชน","Our community is very friendly."],
+["compare","/kəmˈpeə(r)/","เปรียบเทียบ","Compare the two pictures."],
+["confident","/ˈkɒnfɪdənt/","มั่นใจ","She feels confident before the exam."],
+["consider","/kənˈsɪdə(r)/","พิจารณา","Please consider my suggestion."],
+["creative","/kriˈeɪtɪv/","มีความคิดสร้างสรรค์","He has a creative idea."],
+["culture","/ˈkʌltʃə(r)/","วัฒนธรรม","Food is part of a culture."],
+["decision","/dɪˈsɪʒən/","การตัดสินใจ","It was a difficult decision."],
+["develop","/dɪˈveləp/","พัฒนา","Reading helps develop vocabulary."],
+["environment","/ɪnˈvaɪrənmənt/","สิ่งแวดล้อม","We should protect the environment."],
+["experience","/ɪkˈspɪəriəns/","ประสบการณ์","Travel is a good experience."],
+[" improve","/ɪmˈpruːv/","ปรับปรุง, พัฒนาให้ดีขึ้น","Practice will improve your English."],
+["influence","/ˈɪnfluəns/","อิทธิพล, มีอิทธิพลต่อ","Friends can influence our choices."],
+[" opportunity","/ˌɒpəˈtjuːnəti/","โอกาส","This is a great opportunity."],
+["organize","/ˈɔːɡənaɪz/","จัดระเบียบ, จัดเตรียม","Let's organize the project."],
+[" participate","/pɑːˈtɪsɪpeɪt/","เข้าร่วม","All students can participate."],
+[" pollution","/pəˈluːʃən/","มลพิษ","Air pollution is a serious problem."],
+["prepare","/prɪˈpeə(r)/","เตรียมตัว","I prepare for the test every day."],
+[" prevent","/prɪˈvent/","ป้องกัน","Washing hands can prevent illness."],
+[" solution","/səˈluːʃən/","วิธีแก้ปัญหา, ทางออก","We found a solution."],
+[" responsibility","/rɪˌspɒnsəˈbɪləti/","ความรับผิดชอบ","Doing homework is your responsibility."],
+["volunteer","/ˌvɒlənˈtɪə(r)/","อาสาสมัคร, สมัครใจทำ","I volunteer at the local library."],
+["accurate","/ˈækjərət/","ถูกต้อง, แม่นยำ","The information is accurate."],
+["adapt","/əˈdæpt/","ปรับตัว","It takes time to adapt to change."],
+["affect","/əˈfekt/","ส่งผลกระทบต่อ","Sleep can affect your mood."],
+["appropriate","/əˈprəʊpriət/","เหมาะสม","Wear appropriate clothes."],
+["concentrate","/ˈkɒnsəntreɪt/","มีสมาธิ","Please concentrate on your work."],
+["consequence","/ˈkɒnsɪkwəns/","ผลที่ตามมา","Every action has a consequence."],
+["contribute","/kənˈtrɪbjuːt/","มีส่วนช่วย, สนับสนุน","Everyone can contribute to the team."],
+["efficient","/ɪˈfɪʃənt/","มีประสิทธิภาพ","This is an efficient way to study."],
+["essential","/ɪˈsenʃəl/","จำเป็น, สำคัญมาก","Water is essential for life."],
+["flexible","/ˈfleksəbəl/","ยืดหยุ่น","Our schedule is flexible."],
+["identify","/aɪˈdentɪfaɪ/","ระบุ, จำแนก","Can you identify the problem?"],
+["independent","/ˌɪndɪˈpendənt/","เป็นอิสระ, พึ่งพาตนเอง","She is an independent learner."],
+["investigate","/ɪnˈvestɪɡeɪt/","สืบสวน, ตรวจสอบ","Police investigate the case."],
+["maintain","/meɪnˈteɪn/","รักษา, คงไว้","Maintain a healthy lifestyle."],
+["method","/ˈmeθəd/","วิธีการ","This method works well."],
+["necessary","/ˈnesəsəri/","จำเป็น","A passport is necessary for travel."],
+["persuade","/pəˈsweɪd/","โน้มน้าว","He tried to persuade his parents."],
+["recommend","/ˌrekəˈmend/","แนะนำ","Can you recommend a good book?"],
+["reduce","/rɪˈdjuːs/","ลดลง, ลด","We should reduce plastic waste."],
+["require","/rɪˈkwaɪə(r)/","ต้องการ, จำเป็นต้องมี","This job requires patience."]
+].map(x=>[x[0].trim(),x[1],x[2],x[3]]);
+const $=id=>document.getElementById(id), today=()=>new Date().toISOString().slice(0,10);
+let data=JSON.parse(localStorage.getItem("wordquest_v1")||"null")||{known:[],wrong:[],goal:5,learnedToday:{},attempts:0,correct:0,streak:0,lastStudy:null,start:today()};
+let idx=0,quizSet=[],qi=0,answered=false;
+function save(){localStorage.setItem("wordquest_v1",JSON.stringify(data));renderStats()}
+function dailyLearned(){return data.learnedToday[today()]||[]}
+function renderStats(){let n=data.known.length,acc=data.attempts?Math.round(data.correct/data.attempts*100):0;$("learnedStat").textContent=n;$("accuracyStat").textContent=acc+"%";$("streakStat").textContent=data.streak;$("reviewStat").textContent=words.filter(w=>!data.known.includes(w[0])||data.wrong.includes(w[0])).length;$("todayCount").textContent=dailyLearned().length+" / "+data.goal;$("todayBar").style.width=Math.min(100,dailyLearned().length/data.goal*100)+"%";$("dailyGoal").value=data.goal;$("progressLearned").textContent=n+" / "+words.length;$("allBar").style.width=n/words.length*100+"%";$("progressAccuracy").textContent=acc+"%";$("attempts").textContent=data.attempts;$("startDate").textContent=data.start;$("dailyNote").textContent=`วันนี้เรียนแล้ว ${dailyLearned().length} จาก ${data.goal} คำ`}
+function showWord(){let w=words[idx];$("wordCount").textContent=`คำที่ ${idx+1} / ${words.length}`;$("word").textContent=w[0];$("pron").textContent=w[1];$("meaning").textContent=w[2];$("example").textContent="Example: "+w[3];$("knownBtn").textContent=data.known.includes(w[0])?"✓ จำได้แล้ว":"✓ จำได้แล้ว";$("knownBtn").disabled=data.known.includes(w[0]);$("prevBtn").disabled=idx===0;let nextWord=words[idx+1];let reachedGoal=dailyLearned().length>=data.goal;$("nextBtn").disabled=idx===words.length-1||(reachedGoal&&nextWord&&!data.known.includes(nextWord[0]));$("dailyNote").textContent=reachedGoal?`วันนี้ครบเป้าหมาย ${data.goal} คำแล้ว! พรุ่งนี้กลับมาเรียนคำใหม่ได้อีก หรือทบทวนคำเดิมได้`:`วันนี้เรียนแล้ว ${dailyLearned().length} จาก ${data.goal} คำ`;renderStats()}
+function markKnown(){let w=words[idx][0];if(!data.known.includes(w)){data.known.push(w);let a=dailyLearned();if(!a.includes(w))a.push(w);data.learnedToday[today()]=a;updateStreak();save();showWord();}}
+function updateStreak(){let t=today(),y=new Date(Date.now()-86400000).toISOString().slice(0,10);if(data.lastStudy!==t){data.streak=data.lastStudy===y?data.streak+1:1;data.lastStudy=t}}
+function switchTab(tab){document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===tab));document.querySelectorAll(".tabpage").forEach(p=>p.classList.toggle("hide",p.id!==tab));if(tab==="review")renderReview();if(tab==="progress")renderStats()}
+document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>switchTab(b.dataset.tab));
+$("prevBtn").onclick=()=>{idx=Math.max(0,idx-1);showWord()};$("nextBtn").onclick=()=>{idx=Math.min(words.length-1,idx+1);showWord()};$("knownBtn").onclick=markKnown;
+$("speakBtn").onclick=()=>{if("speechSynthesis"in window){let u=new SpeechSynthesisUtterance(words[idx][0]);u.lang="en-US";speechSynthesis.speak(u)}else alert("เบราว์เซอร์นี้ไม่รองรับเสียงอ่าน")};
+$("saveGoal").onclick=()=>{data.goal=Math.max(1,Math.min(20,Number($("dailyGoal").value)||5));save();alert("บันทึกเป้าหมายแล้ว")};
+function renderReview(){let arr=words.filter(w=>!data.known.includes(w[0])||data.wrong.includes(w[0]));$("reviewList").innerHTML=arr.length?arr.map(w=>`<div class="wordrow"><div><b>${w[0]} <small>${w[1]}</small></b><small>${w[2]}</small></div><button class="secondary" onclick="jumpTo('${w[0]}')">เรียนคำนี้</button></div>`).join(""):"<p>ยอดเยี่ยม! ไม่มีคำที่ต้องทบทวนในตอนนี้ 🎉</p>"}
+window.jumpTo=w=>{idx=words.findIndex(x=>x[0]===w);showWord();switchTab("learn")};
+function startQuiz(){quizSet=[...words].sort(()=>Math.random()-.5).slice(0,10);qi=0;$("quizArea").classList.remove("hide");$("quizDone").classList.add("hide");renderQuiz()}
+function renderQuiz(){answered=false;let w=quizSet[qi];$("quizNumber").textContent=`ข้อ ${qi+1} / ${quizSet.length}`;$("quizWord").textContent=w[0];$("quizPron").textContent=w[1];$("feedback").style.display="none";$("nextQuiz").disabled=true;let opts=[w[2]];while(opts.length<4){let v=words[Math.floor(Math.random()*words.length)][2];if(!opts.includes(v))opts.push(v)}opts.sort(()=>Math.random()-.5);$("options").innerHTML=opts.map(o=>`<button class="option">${o}</button>`).join("");[...$("options").children].forEach(b=>b.onclick=()=>answer(b.textContent,w))}
+function answer(choice,w){if(answered)return;answered=true;data.attempts++;let ok=choice===w[2];if(ok)data.correct++;else if(!data.wrong.includes(w[0]))data.wrong.push(w[0]);let f=$("feedback");f.style.display="block";f.className="feedback "+(ok?"good":"bad");f.textContent=ok?"ถูกต้อง! เก่งมาก 🎉":`ยังไม่ถูก คำตอบคือ “${w[2]}”`;[...$("options").children].forEach(b=>{b.disabled=true;if(b.textContent===w[2])b.style.borderColor="#16845d"});$("nextQuiz").disabled=false;save()}
+$("nextQuiz").onclick=()=>{qi++;if(qi<quizSet.length)renderQuiz();else{$("quizArea").classList.add("hide");$("quizDone").classList.remove("hide");$("quizResult").textContent=`ตอบถูก ${data.correct} จาก ${data.attempts} ข้อทั้งหมด (${Math.round(data.correct/data.attempts*100)}%)`}};
+$("restartQuiz").onclick=startQuiz;startQuiz();$("exportBtn").onclick=()=>{let blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="english-word-quest-progress.json";a.click();URL.revokeObjectURL(a.href)};
+$("resetBtn").onclick=()=>{if(confirm("ต้องการล้างประวัติการเรียนทั้งหมดใช่หรือไม่?")){localStorage.removeItem("wordquest_v1");data={known:[],wrong:[],goal:5,learnedToday:{},attempts:0,correct:0,streak:0,lastStudy:null,start:today()};save();showWord();renderReview()}};
+showWord();renderStats();
+</script>
+</body></html>
